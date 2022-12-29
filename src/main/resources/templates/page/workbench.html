@@ -6,10 +6,11 @@
     <link th:replace="/page/include-js.html">
 </head>
 <body>
-<div id="stage">
+<div id="root_div">
 </div>
 </body>
 <script type="text/javascript">
-    // todo init stage
+    var stageController = WW.findController("stage");
+    stageController.init("root_div");
 </script>
 </html>

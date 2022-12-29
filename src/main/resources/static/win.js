@@ -3,9 +3,17 @@ if (WW) {
 }
 
 var WW = new function() {
-    this.addController = function(controller) {
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        console.log(controller);
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    var controllers = {};
+
+    this.register = function(controller, name) {
+        if (controllers[name]) {
+            console.error("[OLAPWeb ERROR] Controller '" + name + "' was existed.");
+            return;
+        }
+        controllers[name] = controller;
+    };
+
+    this.findController = function(name) {
+        return controllers[name];
     };
 };
