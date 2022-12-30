@@ -35,4 +35,19 @@ var WW = new function() {
     this.gn = function() {
         return ++_globalNum;
     };
+
+    this.commonSuperFunctions = {
+        init: function(div_id) {
+            this.divId = div_id;
+            var _this = this;
+            // load html
+            $.ajax({
+                url: this.htmlTplPath,
+                success: function(result) {
+                    $('#' + div_id).html(result.replace(/@PANEL@/g, div_id));
+                    _this.doInit();
+                }
+            });
+        }
+    };
 };

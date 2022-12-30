@@ -1,17 +1,10 @@
 function MdxTerminalFactory() {
 
+    MdxTerminalController.prototype.init = WW.commonSuperFunctions.init;
+
     function MdxTerminalController() {
-        this.init = function(div_id) {
-            var _this = this;
-            // load html
-            $.ajax({
-                url: "/panels/work/mdxTerminal.html",
-                success: function(result) {
-                    $('#' + div_id).html(result.replace(/@PANEL@/g, div_id));
-                    _this.doInit();
-                }
-            });
-        };
+
+        this.htmlTplPath = "/panels/work/mdxTerminal.html";
 
         this.doInit = function() {
             console.log("<<<<<<<<<<<<<<<<<<<<<<<< MdxTerminalController.doInit()");
