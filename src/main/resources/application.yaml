@@ -1,0 +1,4 @@
+euclidolap:
+  server:
+    host: 192.168.66.235
+    port: 8760
