@@ -7,31 +7,32 @@ function MdxTerminalFactory() {
         this.htmlTplPath = "/panels/work/mdxTerminal.html";
 
         this.$txtArea;
+        this.$result;
 
         this.doInit = function() {
             console.log("<<<<<<<<<<<<<<<<<<<<<<<< MdxTerminalController.doInit()");
 
-            this.$txtArea = $('#' + this.divId + '_mdxTxtArea')
+            this.$txtArea = $('#' + this.divId + '_mdxTxtArea');
+            this.$result = $('#' + this.divId + '_result');
 
-            $('#' + this.divId + '_execBtn').click(this.$txtArea, function(event) {
-                var txtArea = event.data;
-                // console.log(txtArea.val());
+            $('#' + this.divId + '_execBtn').click(this, function(event) {
+                var controller = event.data;
                 $.ajax({
                     type: "post",
                     dataType: "json",
                     url: "/api/execMdx",
                     contentType: "application/json; charset=UTF-8",
                     data: JSON.stringify({
-                        mdx: txtArea.val()
+                        mdx: controller.$txtArea.val()
                     }),
-                    success: function (result) {
-                        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                        console.log(result);
-                        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>>>>>>>>>>>>>>");
+                    success: function (data) {
+//                        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+//                        console.log(result);
+//                        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>>>>>>>>>>>>>>");
+                        controller.$result.val(data.result);
                     }
                 });
             });
-
         };
     }
 
