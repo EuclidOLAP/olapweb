@@ -15,6 +15,13 @@ function MdxTerminalFactory() {
             this.$txtArea = $('#' + this.divId + '_mdxTxtArea');
             this.$result = $('#' + this.divId + '_result');
 
+            $("#" + this.divId + "_chartBar").click(this, function(event) {
+                var stageCtl = WW.findController("stage");
+                var tmpPanelId = stageCtl.popDialog();
+                console.log("####################### tmpPanelId = " + tmpPanelId);
+                // alert("// todo _chartBar");
+            });
+
             $('#' + this.divId + '_execBtn').click(this, function(event) {
                 var controller = event.data;
                 $.ajax({
