@@ -52,6 +52,9 @@ function StageController() {
             "background-color": "gray"
         });
         this.$dialog.show();
+
+        $("#" + chiDivId).height(this.$dialog.height() - this.$dialogClose.height());
+
         return chiDivId;
     };
 };
