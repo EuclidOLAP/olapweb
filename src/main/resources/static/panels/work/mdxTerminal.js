@@ -20,6 +20,7 @@ function MdxTerminalFactory() {
                 var tmpPanelId = stageCtl.popDialog();
                 console.log("####################### tmpPanelId = " + tmpPanelId);
                 // alert("// todo _chartBar");
+                WW.findFactory("chart/chart").newController().init(tmpPanelId);
             });
 
             $('#' + this.divId + '_execBtn').click(this, function(event) {
