@@ -9,6 +9,8 @@ function MdxTerminalFactory() {
         this.$txtArea;
         this.$result;
 
+        this.lastMultiDimsResult;
+
         this.doInit = function() {
             console.log("<<<<<<<<<<<<<<<<<<<<<<<< MdxTerminalController.doInit()");
 
@@ -37,6 +39,9 @@ function MdxTerminalFactory() {
 //                        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 //                        console.log(result);
 //                        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>>>>>>>>>>>>>>");
+                        controller.lastMultiDimsResult = JSON.parse(data.result);
+                        console.log(controller.lastMultiDimsResult);
+
                         controller.$result.val(data.result);
                     }
                 });
