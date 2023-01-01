@@ -49,7 +49,7 @@ function StageController() {
             top: "10px",
             width: "800px",
             height: "420px",
-            "background-color": "gray"
+            "background-color": "#EEEEEE"
         });
         this.$dialog.show();
 
