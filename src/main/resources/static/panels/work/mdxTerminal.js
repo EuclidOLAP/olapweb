@@ -17,6 +17,13 @@ function MdxTerminalFactory() {
             this.$txtArea = $('#' + this.divId + '_mdxTxtArea');
             this.$result = $('#' + this.divId + '_result');
 
+            $("#" + this.divId + "_smoothLine").click(this, function(event) {
+                var chartCtl = WW.findFactory("chart/chart").newController();
+                chartCtl.init(WW.findController("stage").popDialog(), function() {
+                    chartCtl.paint("smooth_line", event.data.lastMultiDimsResult);
+                });
+            });
+
             $("#" + this.divId + "_chartBar").click(this, function(event) {
                 var stageCtl = WW.findController("stage");
                 var tmpPanelId = stageCtl.popDialog();
