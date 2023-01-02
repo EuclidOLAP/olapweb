@@ -22,7 +22,10 @@ function MdxTerminalFactory() {
                 var tmpPanelId = stageCtl.popDialog();
                 console.log("####################### tmpPanelId = " + tmpPanelId);
                 // alert("// todo _chartBar");
-                WW.findFactory("chart/chart").newController().init(tmpPanelId);
+                var chartCtl = WW.findFactory("chart/chart").newController();
+                chartCtl.init(tmpPanelId, function() {
+                    chartCtl.paint("basic_bar", event.data.lastMultiDimsResult);
+                });
             });
 
             $('#' + this.divId + '_execBtn').click(this, function(event) {

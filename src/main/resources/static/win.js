@@ -37,15 +37,18 @@ var WW = new function() {
     };
 
     this.commonSuperFunctions = {
-        init: function(div_id) {
+        init: function(div_id, callback) {
             this.divId = div_id;
             var _this = this;
             // load html
             $.ajax({
                 url: this.htmlTplPath,
+                ctlCallback: callback,
                 success: function(result) {
                     $('#' + div_id).html(result.replace(/@PANEL@/g, div_id));
                     _this.doInit();
+                    if (this.ctlCallback)
+                        this.ctlCallback();
                 }
             });
         }
