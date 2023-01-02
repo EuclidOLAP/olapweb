@@ -60,9 +60,34 @@ function ChartFactory() {
         };
 
         this.paintBasicBar_2D = function(mdr) {
-            var option = {
 
+            var option = {
+                legend: {},
+                tooltip: {},
+                dataset: {
+                    source: [['product']]
+                },
+                xAxis: { type: 'category' },
+                yAxis: {},
+                series: []
             };
+
+            var rowTuples = mdr.sets[0].ts;
+            var colTuples = mdr.sets[1].ts;
+
+            colTuples.forEach(function(tupleInfo) {
+                option.dataset.source[0].push(tupleInfo.display);
+                option.series.push({ type: 'bar' });
+            });
+            rowTuples.forEach(function(tupleInfo) {
+                option.dataset.source.push([tupleInfo.display]);
+            });
+
+            for (var r = 0; r < rowTuples.length; r++) {
+                for (var c = 0; c < rowTuples.length; c++) {
+                    option.dataset.source[r + 1].push(mdr.values[r * rowTuples.length + c]);
+                }
+            }
 
             echarts.init(document.getElementById(this.divId)).setOption(option);
         };
