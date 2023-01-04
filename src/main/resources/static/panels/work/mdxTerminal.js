@@ -8,6 +8,7 @@ function MdxTerminalFactory() {
 
         this.$txtArea;
         this.$result;
+        this.$tbl;
 
         this.lastMultiDimsResult;
 
@@ -16,6 +17,7 @@ function MdxTerminalFactory() {
 
             this.$txtArea = $('#' + this.divId + '_mdxTxtArea');
             this.$result = $('#' + this.divId + '_result');
+            this.$tbl = $('#' + this.divId + '_tbl');
 
             $("#" + this.divId + "_smoothLine").click(this, function(event) {
                 var chartCtl = WW.findFactory("chart/chart").newController();
@@ -45,19 +47,87 @@ function MdxTerminalFactory() {
                     data: JSON.stringify({
                         mdx: controller.$txtArea.val()
                     }),
+                    _$context: event.data,
                     success: function (data) {
 //                        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 //                        console.log(result);
 //                        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>>>>>>>>>>>>>>");
-                        controller.lastMultiDimsResult = JSON.parse(data.result);
-                        console.log(controller.lastMultiDimsResult);
+                        this._$context.lastMultiDimsResult = JSON.parse(data.result);
+                        console.log(this._$context.lastMultiDimsResult);
 
 //                        controller.$result.val(data.result);
-                        controller.$result.val(JSON.stringify(controller.lastMultiDimsResult, null, "  "));
+                        this._$context.$result.val(JSON.stringify(this._$context.lastMultiDimsResult, null, "  "));
+
+                        this._$context.reDrawTable(this._$context.lastMultiDimsResult);
                     }
                 });
             });
         };
+
+        this.reDrawTable = function(mdResult) {
+            this.$tbl.children().remove();
+            if (mdResult.sets.length > 2) {
+                this.$tbl.append("<tr><td>3D</td></tr>");
+            } else if (mdResult.sets.length == 1) {
+                for (var i = 0; i < mdResult.sets[0].ts.length; i++) {
+                    var tuple = mdResult.sets[0].ts[i];
+                    this.$tbl.append("<tr><td>" + tuple.display + "</td><td>" + mdResult.values[i] + "</td></tr>");
+                }
+            } else {
+                // this.$tbl.append("<tr><td>2D</td></tr>");
+                this.reDrawTable_2D(mdResult);
+            }
+        };
+
+        this.reDrawTable_2D = function(mdResult) {
+            var rowSet = mdResult.sets[0];
+            var colSet = mdResult.sets[1];
+            var rowLen = rowSet.ts.length;
+            var colLen = colSet.ts.length;
+            var rowTupLenMax = rowSet.tupLenMax;
+            var colTupLenMax = colSet.tupLenMax;
+
+            var tdMap = {};
+
+            for (var i = 0; i < rowLen + colTupLenMax; i++) {
+                var iRow = $("<tr></tr>");
+                for (var j = 0; j < colLen + rowTupLenMax; j++) {
+                    var pos = i+"_"+j;
+                    var ijTd = $("<td _pos='" + pos + "'></td>");
+                    iRow.append(ijTd);
+                    tdMap[pos] = ijTd;
+                }
+                this.$tbl.append(iRow);
+            }
+
+            // column
+            for (var i = 0; i < colLen; i++) {
+                var tupleInfo = colSet.ts[i];
+                for (var j = 0; j < tupleInfo.ms.length; j++) {
+                    var memberInfo = tupleInfo.ms[j];
+                    var pos = (j + colTupLenMax - tupleInfo.ms.length) + "_" + (rowTupLenMax + i);
+                    tdMap[pos].html(memberInfo.display);
+                }
+            }
+
+            // row
+            for (var i = 0; i < rowLen; i++) {
+                var tupleInfo = rowSet.ts[i];
+                for (var j = 0; j < tupleInfo.ms.length; j++) {
+                    var memberInfo = tupleInfo.ms[j];
+                    var pos = (i + colTupLenMax) + "_" + (j + rowTupLenMax - tupleInfo.ms.length);
+                    tdMap[pos].html(memberInfo.display);
+                }
+            }
+
+            for (var i = 0; i < rowLen; i++) {
+                for (var j = 0; j < colLen; j++) {
+                    var pos = (i + colTupLenMax) + "_" + (j + rowTupLenMax);
+                    tdMap[pos].html(mdResult.values[i * colLen + j]);
+                }
+            }
+        };
+
     }
 
     this.newController = function() {
