@@ -19,6 +19,12 @@ function MdxTerminalFactory() {
             this.$result = $('#' + this.divId + '_result');
             this.$tbl = $('#' + this.divId + '_tbl');
 
+            this.$chartA_id = this.divId + '_chartA';
+            this.$chartB_id = this.divId + '_chartB';
+
+            this.$chartA = $('#' + this.$chartA_id);
+            this.$chartB = $('#' + this.$chartB_id);
+
             $("#" + this.divId + "_smoothLine").click(this, function(event) {
                 var chartCtl = WW.findFactory("chart/chart").newController();
                 chartCtl.init(WW.findController("stage").popDialog(), function() {
@@ -59,6 +65,23 @@ function MdxTerminalFactory() {
                         this._$context.$result.val(JSON.stringify(this._$context.lastMultiDimsResult, null, "  "));
 
                         this._$context.reDrawTable(this._$context.lastMultiDimsResult);
+
+                        this._$context.$chartA.children().remove();
+                        this._$context.$chartB.children().remove();
+                        var tmpDivAId = WW.gn();
+                        var tmpDivBId = WW.gn();
+                        this._$context.$chartA.append("<div id='"+ tmpDivAId +"' style='width: 100%; height: 100%;'></div>");
+                        this._$context.$chartB.append("<div id='"+ tmpDivBId +"' style='width: 100%; height: 100%;'></div>");
+
+                        var multiDimsRst = this._$context.lastMultiDimsResult;
+                        var chartCtlA = WW.findFactory("chart/chart").newController();
+                        chartCtlA.init(tmpDivAId, function() {
+                            chartCtlA.paint("basic_bar", multiDimsRst);
+                        });
+                        var chartCtlB = WW.findFactory("chart/chart").newController();
+                        chartCtlB.init(tmpDivBId, function() {
+                            chartCtlB.paint("smooth_line", multiDimsRst);
+                        });
                     }
                 });
             });

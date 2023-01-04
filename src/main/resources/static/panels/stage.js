@@ -25,7 +25,7 @@ function StageController() {
         this.$dialog = $("#" + this.divId + "_dialog");
         this.$dialogContent = $("#" + this.divId + "_dialogContent");
 
-        this.resize();
+        // this.resize();
         WW.findController("menu").init(this.divId + "_menu");
 
         this.$dialogClose.click(this, function(event) {
@@ -36,7 +36,7 @@ function StageController() {
 
     this.createWorkArea = function() {
         var workAreaDivId = this.divId + "_work_" + WW.gn();
-        $("#" + this.divId + "_work").append($("<div id='" + workAreaDivId + "'></div>"));
+        $("#" + this.divId + "_work").append($("<div id='" + workAreaDivId + "' style='height: 100%;'></div>"));
         return workAreaDivId;
     };
 
