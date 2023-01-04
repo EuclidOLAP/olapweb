@@ -52,7 +52,8 @@ function MdxTerminalFactory() {
                         controller.lastMultiDimsResult = JSON.parse(data.result);
                         console.log(controller.lastMultiDimsResult);
 
-                        controller.$result.val(data.result);
+//                        controller.$result.val(data.result);
+                        controller.$result.val(JSON.stringify(controller.lastMultiDimsResult, null, "  "));
                     }
                 });
             });

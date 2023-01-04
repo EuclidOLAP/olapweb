@@ -63,9 +63,9 @@ function ChartFactory() {
 
         this.paintSmoothLine_2D = function(mdr) {
             var option = {
-                tooltip: {
-                    trigger: 'axis'
-                },
+//                tooltip: {
+//                    trigger: 'axis'
+//                },
                 legend: {
                     data: []
                 },
