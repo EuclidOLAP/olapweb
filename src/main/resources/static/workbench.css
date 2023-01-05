@@ -10,14 +10,14 @@ body {
 }
 
 table {
-    border-top: 2px solid blue;
-    border-left: 2px solid blue;
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
     border-collapse: collapse;
 }
 
 td {
     white-space: nowrap;
-    border-right: 2px solid blue;
-    border-bottom: 2px solid blue;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
     padding: 3px 6px;
 }

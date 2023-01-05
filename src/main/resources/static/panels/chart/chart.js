@@ -75,11 +75,11 @@ function ChartFactory() {
                     bottom: '3%',
                     containLabel: true
                 },
-                toolbox: {
-                    feature: {
-                        saveAsImage: {}
-                    }
-                },
+//                toolbox: {
+//                    feature: {
+//                        saveAsImage: {}
+//                    }
+//                },
                 xAxis: {
                     type: 'category',
                     boundaryGap: false,
