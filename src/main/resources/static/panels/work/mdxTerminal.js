@@ -151,6 +151,19 @@ function MdxTerminalFactory() {
                     tdMap[pos].html(mdResult.values[i * colLen + j]);
                 }
             }
+
+            // merge and hide
+            tdMap["0_0"].attr("rowspan", colTupLenMax + "");
+            tdMap["0_0"].attr("colspan", rowTupLenMax + "");
+            for (var r = 0; r < colTupLenMax; r++) {
+                for (var c = 0; c < rowTupLenMax; c++) {
+                    if (r != 0 || c != 0)
+                        tdMap[r + "_" + c].css({
+                            display: "none"
+                        });
+                }
+            }
+
         };
 
     }
