@@ -69,12 +69,12 @@ function ChartFactory() {
 //                legend: {
 //                    data: []
 //                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
+//                grid: {
+//                    left: '3%',
+//                    right: '4%',
+//                    bottom: '3%',
+//                    containLabel: true
+//                },
 //                toolbox: {
 //                    feature: {
 //                        saveAsImage: {}
