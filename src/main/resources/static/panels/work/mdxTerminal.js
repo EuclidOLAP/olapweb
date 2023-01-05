@@ -64,7 +64,7 @@ function MdxTerminalFactory() {
                         var formattedJson = JSON.stringify(this._$context.lastMultiDimsResult, null, "    ");
                         this._$context.$result.children().remove();
                         this._$context.$result
-                            .append("<div style='font-size: 13px; white-space: pre;'>" + formattedJson + "</div>");
+                            .append("<div style='font-size: 13px; white-space: pre; padding: 10px;'>" + formattedJson + "</div>");
 
                         this._$context.reDrawTable(this._$context.lastMultiDimsResult);
 

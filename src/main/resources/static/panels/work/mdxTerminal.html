@@ -1,20 +1,20 @@
-<div style="float: left; width: 50%; height: 50%; background-color: red;">
-    <div id="@PANEL@_inputMdx">
-        <textarea id="@PANEL@_mdxTxtArea" rows="8" cols="60"></textarea>
+<div style="float: left; width: 50%; height: 50%;">
+    <div id="@PANEL@_inputMdx" style="padding: 8px;">
+        <textarea id="@PANEL@_mdxTxtArea" style="width: 85%; height: 60%; padding: 5px;" rows="8" cols="60"></textarea>
     </div>
-    <div id="@PANEL@_exec">
-        <button id="@PANEL@_execBtn" type="button">Exec</button>
-        <button id="@PANEL@_chartBar" type="button">chart bar</button>
-        <button id="@PANEL@_smoothLine" type="button">smooth line</button>
+    <div id="@PANEL@_exec" style="padding: 0px 8px;">
+        <button id="@PANEL@_execBtn" type="button" style="padding: 6px 10px; font-size: 16px;">exec</button>
+        <!--<button id="@PANEL@_chartBar" type="button">chart bar</button>-->
+        <!--<button id="@PANEL@_smoothLine" type="button">smooth line</button>-->
     </div>
 </div>
-<div style="float: left; width: 50%; height: 50%; overflow: auto; background-color: green;">
-    <table id="@PANEL@_tbl"></table>
+<div style="float: left; width: 50%; height: 50%; overflow: auto; font-size: 13px;">
+    <table id="@PANEL@_tbl" style="margin: 8px;"></table>
 </div>
-<div style="float: left; width: 40%; height: 50%; background-color: pink;">
+<div style="float: left; width: 40%; height: 50%;">
     <div id="@PANEL@_chartA" style="width: 100%; height: 100%;"></div>
 </div>
-<div style="float: left; width: 40%; height: 50%; background-color: gray;">
+<div style="float: left; width: 40%; height: 50%;">
     <div id="@PANEL@_chartB" style="width: 100%; height: 100%;"></div>
 </div>
 <div id="@PANEL@_result" style="float: left; width: 20%; height: 50%; overflow: auto;">
