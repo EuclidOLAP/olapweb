@@ -66,9 +66,9 @@ function ChartFactory() {
 //                tooltip: {
 //                    trigger: 'axis'
 //                },
-                legend: {
-                    data: []
-                },
+//                legend: {
+//                    data: []
+//                },
                 grid: {
                     left: '3%',
                     right: '4%',
@@ -100,7 +100,7 @@ function ChartFactory() {
 
             for (var i = 0; i < rowTuples.length; i++) {
                 var tupleInfo = rowTuples[i];
-                option.legend.data.push(tupleInfo.display);
+                // option.legend.data.push(tupleInfo.display);
                 var series_term = {
                     name: tupleInfo.display,
                     type: "line",
@@ -157,7 +157,7 @@ function ChartFactory() {
         this.paintBasicBar_2D = function(mdr) {
 
             var option = {
-                legend: {},
+//                legend: {},
                 tooltip: {},
                 dataset: {
                     source: [['product']]
