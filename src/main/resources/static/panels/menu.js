@@ -3,15 +3,26 @@ MenuController.prototype.init = WW.commonSuperFunctions.init;
 function MenuController() {
 
     this.htmlTplPath = "/panels/menu.html";
+    this.$mdxTer;
 
     this.doInit = function() {
-        $('#' + this.divId + '_mdxTer').click(function() {
+        this.$mdxTer = $('#' + this.divId + '_mdxTer');
+        this.$mdxTer.click(this, function(event) {
+            var ctl = event.data;
+            ctl.$mdxTer.css({
+                "background-color": "#39495e",
+                "color": "#ffffff"
+            });
             console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>> click [MDX Terminal]");
-            if (this.workAreaDivId) {
-            } else {
-                this.workAreaDivId = WW.findController("stage").createWorkArea();
-                WW.findFactory("work/mdxTerminal").newController().init(this.workAreaDivId);
+            if (ctl.$mdxTer.attr("data-exist") != "Y") {
+                var workAreaDivId = WW.findController("stage").createWorkArea();
+                WW.findFactory("work/mdxTerminal").newController().init(workAreaDivId);
+                ctl.$mdxTer.attr("data-exist", "Y");
             }
+//            else {
+//                this.workAreaDivId = WW.findController("stage").createWorkArea();
+//                WW.findFactory("work/mdxTerminal").newController().init(this.workAreaDivId);
+//            }
         });
     };
 
