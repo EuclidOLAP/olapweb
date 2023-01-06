@@ -82,7 +82,7 @@ function ChartFactory() {
 //                },
                 xAxis: {
                     type: 'category',
-                    boundaryGap: false,
+//                    boundaryGap: false,
                     data: []
                 },
                 yAxis: {
@@ -105,10 +105,10 @@ function ChartFactory() {
                     name: tupleInfo.display,
                     type: "line",
                     stack: "Total",
-                    smooth: true,
+//                    smooth: true,
                     data: []
                 };
-                for (var c = 0; c < rowTuples.length; c++) {
+                for (var c = 0; c < colTuples.length; c++) {
                     series_term.data.push(mdr.values[i * rowTuples.length + c]);
                 }
                 option.series.push(series_term);
@@ -171,16 +171,16 @@ function ChartFactory() {
             var colTuples = mdr.sets[1].ts;
 
             colTuples.forEach(function(tupleInfo) {
+                option.dataset.source.push([tupleInfo.display]);
+            });
+            rowTuples.forEach(function(tupleInfo) {
                 option.dataset.source[0].push(tupleInfo.display);
                 option.series.push({ type: 'bar' });
             });
-            rowTuples.forEach(function(tupleInfo) {
-                option.dataset.source.push([tupleInfo.display]);
-            });
 
             for (var r = 0; r < rowTuples.length; r++) {
-                for (var c = 0; c < rowTuples.length; c++) {
-                    option.dataset.source[r + 1].push(mdr.values[r * rowTuples.length + c]);
+                for (var c = 0; c < colTuples.length; c++) {
+                    option.dataset.source[c + 1].push(mdr.values[r * rowTuples.length + c]);
                 }
             }
 
