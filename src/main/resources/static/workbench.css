@@ -21,3 +21,15 @@ td {
     border-bottom: 1px solid gray;
     padding: 3px 6px;
 }
+
+.menu-term {
+    padding: 20px 25px;
+    background-color: #dbdbdb;
+    font-weight: bold;
+    color: #25324a;
+    cursor: pointer;
+}
+
+.menu-term:hover {
+    background-color: #bccadd;
+}
