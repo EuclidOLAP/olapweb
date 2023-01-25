@@ -180,7 +180,7 @@ public class MeaVals10000000 {
         String[] sep = new String[6];
         List<String> cells = new ArrayList<>(11000);
 
-        Terminal terminal = new Terminal("192.168.66.235", 8760);
+        Terminal terminal = new Terminal("192.168.66.236", 8760);
         terminal.connect();
 
 

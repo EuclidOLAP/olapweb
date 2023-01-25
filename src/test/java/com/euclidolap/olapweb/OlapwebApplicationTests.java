@@ -10,7 +10,7 @@ class OlapwebApplicationTests {
 
     @Test
     void conn() {
-        Terminal terminal = new Terminal("192.168.66.235", 8760);
+        Terminal terminal = new Terminal("192.168.66.236", 8760);
 
         terminal.connect();
 
@@ -29,7 +29,7 @@ class OlapwebApplicationTests {
 
     @Test
     void insertMeasureValues() {
-        Terminal terminal = new Terminal("192.168.66.235", 8760);
+        Terminal terminal = new Terminal("192.168.66.236", 8760);
         terminal.connect();
         MultiDimResult result = (MultiDimResult) terminal.exec("insert [Online Store] " +
                 "(" +
