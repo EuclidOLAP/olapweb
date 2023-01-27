@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>olap web</title>
+
+    <script src="/jquery-3.6.3.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="/workbench.css">
+    <style type="text/css">
+        #endpoint::-webkit-input-placeholder {
+            color: #989898;
+        }
+    </style>
 </head>
 <body style="text-align: center;">
     <div style="height: 15%;"></div>
@@ -12,8 +20,34 @@
     </div>
     <div>
         <form action="/page/workbench" method="post">
-            <button type="submit" style="padding: 10px 30px; font-size: 24px;">Sign in</button>
+            <input id="endpoint" type="text" placeholder="server-host:port" style="font-size: 32px;">
+            <button type="button" style="padding: 5px 30px; font-size: 24px;">Connect</button>
         </form>
     </div>
 </body>
+
+<script type="text/javascript">
+    $(function() {
+
+        $("button").click(function(event) {
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=UTF-8",
+                url: "/api/connect",
+                data: JSON.stringify({
+                    svrHostPort: $("input").val()
+                }),
+                success: function(response) {
+                    console.log(">>>" + response + "<<<");
+                    $("form").submit();
+                },
+                error: function(err) {
+                    console.error(err);
+                }
+            });
+        });
+
+    });
+</script>
+
 </html>
