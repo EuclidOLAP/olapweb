@@ -29,6 +29,14 @@
 <script type="text/javascript">
     $(function() {
 
+        $.ajax({
+            url: "/api/wasConnectorExisted",
+            success: function(result) {
+                if (result == "YES")
+                    $("form").submit();
+            }
+        });
+
         $("button").click(function(event) {
             $.ajax({
                 type: 'POST',
@@ -39,10 +47,14 @@
                 }),
                 success: function(response) {
                     console.log(">>>" + response + "<<<");
-                    $("form").submit();
+                    if ("successful" == response)
+                        $("form").submit();
+                    else
+                        alert("can't connect to " + $("input").val());
                 },
                 error: function(err) {
                     console.error(err);
+                    alert(err);
                 }
             });
         });

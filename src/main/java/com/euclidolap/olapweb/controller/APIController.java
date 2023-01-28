@@ -38,13 +38,19 @@ public class APIController {
 
     @PostMapping("/connect")
     public String connect(@RequestBody Map<String, String> param) {
+
         String svrHostPort = param.get("svrHostPort");
         String serverHost = svrHostPort.split(":")[0];
         int port = Integer.parseInt(svrHostPort.split(":")[1]);
 
         Terminal terminal = olapAdapter.createConnector(serverHost, port);
 
-        return "successful";
+        return terminal != null ? "successful" : "failure";
+    }
+
+    @RequestMapping("/wasConnectorExisted")
+    public String wasConnectorExisted() {
+        return olapAdapter.getTerminal() == null ? "NO" : "YES";
     }
 
 }
