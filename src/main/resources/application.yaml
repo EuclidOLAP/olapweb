@@ -1,4 +1,2 @@
 #euclidolap:
-#  server:
-#    host: 192.168.66.236
-#    port: 8760
+#  server: 127.0.0.1:8760
