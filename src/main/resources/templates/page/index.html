@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>olap web</title>
@@ -12,23 +12,86 @@
             color: #989898;
         }
     </style>
+
 </head>
 <body style="text-align: center;">
-    <div style="height: 15%;"></div>
-    <div style="height: 30%;">
-        <h1 style="font-size: 96px; color: #2c4a8d;">EuclidOLAP Web</h1>
+
+<div th:switch="${wasAlreadyConnected}">
+    <div id="wasAlreadyConnected" data-stat="YES" th:case="YES"></div>
+    <div id="wasAlreadyConnected" data-stat="NO" th:case="NO"></div>
+</div>
+
+<div style="height: 15%;"></div>
+<div style="height: 30%;">
+    <h1 style="font-size: 64px; color: #2c4a8d;">OLAP Web</h1>
+</div>
+
+<div>
+
+    <div id="_directly_connect" th:switch="${wasAlreadyConnected}" style="display: none;">
+        <div th:case="YES">
+            An established connection already exists.
+            <br>
+            <button id="_direct_conn" type="button" style="padding: 5px 30px; font-size: 24px;">Directly Connect</button>
+            <br>
+            <a id="_new_conn" href="#">create a new connection</a>
+        </div>
     </div>
-    <div>
-        <form action="/page/workbench" method="post">
-            <input id="endpoint" type="text" placeholder="server-host:port" style="font-size: 32px;">
-            <button type="button" style="padding: 5px 30px; font-size: 24px;">Connect</button>
-        </form>
+
+    <!--<div th:switch="${wasAlreadyConnected}">
+        <span th:case="YES">
+            A connection has been established and you can directly click the [connect] button to enter the console.
+            Or, enter a different connection address.
+        </span>
+        <span th:case="NO">Please enter a valid EuclidOLAP service address and click the [connect] button to enter the console.</span>
+    </div>-->
+
+    <form id="_input_connect" action="/page/workbench" method="post" style="display: none;">
+        <input id="endpoint" type="text" placeholder="server-host:port" style="font-size: 32px;">
+        <button id="_new_conn_btn" type="button" style="padding: 5px 30px; font-size: 24px;">Connect</button>
+    </form>
+
+    <div id="_use_already" th:switch="${wasAlreadyConnected}" style="display: none;">
+        <div th:case="YES">
+            <a id="_use_already_conn" href="#">Use the other connection that already exists.</a>
+        </div>
     </div>
+
+</div>
+
 </body>
 
 <script type="text/javascript">
+
+
+    console.log("wasAlreadyConnected ? " + $("#wasAlreadyConnected").attr("data-stat"));
+    if ($("#wasAlreadyConnected").attr("data-stat") == "YES") {
+
+        $("#_directly_connect").show();
+
+        $("#_new_conn").click(function() {
+            $("#_directly_connect").hide();
+            $("#_input_connect").show();
+            $("#_use_already").show();
+        });
+
+        $("#_use_already_conn").click(function() {
+            $("#_directly_connect").show();
+            $("#_input_connect").hide();
+            $("#_use_already").hide();
+        });
+
+        $("#_direct_conn").click(function() {
+            $("form").submit();
+        });
+
+    } else {
+        $("#_input_connect").show();
+    }
+
     $(function() {
 
+/*
         $.ajax({
             url: "/api/wasConnectorExisted",
             success: function(result) {
@@ -36,8 +99,9 @@
                     $("form").submit();
             }
         });
+*/
 
-        $("button").click(function(event) {
+        $("#_new_conn_btn").click(function(event) {
             $.ajax({
                 type: 'POST',
                 contentType: "application/json; charset=UTF-8",
@@ -60,6 +124,7 @@
         });
 
     });
+
 </script>
 
 </html>

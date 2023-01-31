@@ -1,2 +1,6 @@
-#euclidolap:
+euclidolap:
+  initTryConnCount: 10
 #  server: 127.0.0.1:8760
+
+server:
+  port: 8761

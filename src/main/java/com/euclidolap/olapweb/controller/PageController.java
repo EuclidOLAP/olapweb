@@ -8,11 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/page")
 public class PageController {
 
-    @RequestMapping("/index")
-    public String index() {
-        return "page/index";
-    }
-
     @PostMapping("/workbench")
     public String workbench() {
         return "page/workbench";

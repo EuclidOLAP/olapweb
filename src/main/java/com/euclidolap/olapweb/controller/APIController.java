@@ -43,9 +43,21 @@ public class APIController {
         String serverHost = svrHostPort.split(":")[0];
         int port = Integer.parseInt(svrHostPort.split(":")[1]);
 
-        Terminal terminal = olapAdapter.createConnector(serverHost, port);
+        Terminal terminal = new Terminal(serverHost, port);
+        try {
+            terminal.connect();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return "failure";
+        }
 
-        return terminal != null ? "successful" : "failure";
+        Terminal t = olapAdapter.createConnector(serverHost, port);
+        if (t != null) {
+            olapAdapter.getTerminal().close();
+        }
+        olapAdapter.setTerminal(terminal);
+
+        return "successful";
     }
 
     @RequestMapping("/wasConnectorExisted")
