@@ -19,7 +19,7 @@ class OlapwebApplicationTests {
                 "{ ([Payment Method].[Credit Card], measure.[sales amount]), ([Payment Method].[Debit Card], measure.[sales amount]), ([Payment Method].[Account Balance], measure.[sales amount]) } on 1 " +
                 "from [Online Store];";
 
-        for (int i = 0; i < 666; i++) {
+        for (int i = 0; i < 888; i++) {
             MultiDimResult result = (MultiDimResult) terminal.exec(mdx);
             result.show(System.out);
         }
