@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 @Component
-public class OLAPAdapter {
+public class OLAPWrapper {
 
     @Value("${euclidolap.initTryConnCount:3}")
     private int initTryConnCount;

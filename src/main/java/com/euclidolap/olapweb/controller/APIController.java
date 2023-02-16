@@ -1,6 +1,6 @@
 package com.euclidolap.olapweb.controller;
 
-import com.euclidolap.olapweb.olap.OLAPAdapter;
+import com.euclidolap.olapweb.olap.OLAPWrapper;
 import com.euclidolap.sdk.MultiDimResult;
 import com.euclidolap.sdk.Terminal;
 import com.google.gson.Gson;
@@ -18,12 +18,12 @@ import java.util.Map;
 public class APIController {
 
     @Autowired
-    private OLAPAdapter olapAdapter;
+    private OLAPWrapper olapWrapper;
 
     @PostMapping("/execMdx")
     public Object execMdx(@RequestBody Map<String, Object> param) {
 
-        Terminal terminal = olapAdapter.getTerminal();
+        Terminal terminal = olapWrapper.getTerminal();
         MultiDimResult result = (MultiDimResult) terminal.exec((String) param.get("mdx"));
 
         //ByteArrayOutputStream bytesArr = new ByteArrayOutputStream();
@@ -51,18 +51,18 @@ public class APIController {
             return "failure";
         }
 
-        Terminal t = olapAdapter.createConnector(serverHost, port);
+        Terminal t = olapWrapper.createConnector(serverHost, port);
         if (t != null) {
-            olapAdapter.getTerminal().close();
+            olapWrapper.getTerminal().close();
         }
-        olapAdapter.setTerminal(terminal);
+        olapWrapper.setTerminal(terminal);
 
         return "successful";
     }
 
     @RequestMapping("/wasConnectorExisted")
     public String wasConnectorExisted() {
-        return olapAdapter.getTerminal() == null ? "NO" : "YES";
+        return olapWrapper.getTerminal() == null ? "NO" : "YES";
     }
 
 }
