@@ -1,13 +1,25 @@
 package com.euclidolap.olapweb.olap;
 
 import com.euclidolap.sdk.Terminal;
+import com.google.common.io.FileWriteMode;
+import com.google.common.io.Files;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class OLAPWrapper {
+
+    private static final File euclidolapServicesInfoFile = new File("euclidolapServicesInfo.txt");
+
+    @Value("${euclidolap.predefinedServices:nothing}")
+    private String predefinedServices;
 
     @Value("${euclidolap.initTryConnCount:3}")
     private int initTryConnCount;
@@ -18,6 +30,21 @@ public class OLAPWrapper {
     private Terminal terminal;
 
     @PostConstruct
+    private void initialize() throws IOException {
+        if ("nothing".equals(predefinedServices))
+            return;
+
+        List<String> lines = euclidolapServicesInfoFile.exists() ? Files.readLines(euclidolapServicesInfoFile, StandardCharsets.UTF_8) : new ArrayList<>();
+        String[] preSvcList = predefinedServices.split(",");
+
+        for (String preSvc : preSvcList) {
+            if (lines.contains(preSvc))
+                continue;
+            addConnectorInfo(preSvc);
+        }
+    }
+
+    //@PostConstruct
     private void initTer() {
         if ("unknown".equals(euclidOlapServer))
             return;
@@ -65,5 +92,22 @@ public class OLAPWrapper {
 
         initTer();
         return terminal;
+    }
+
+    public List<String> getServicesInfo() {
+        try {
+            return euclidolapServicesInfoFile.exists() ? Files.readLines(euclidolapServicesInfoFile, StandardCharsets.UTF_8) : new ArrayList<>();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    public void addConnectorInfo(String connInfo) {
+        try {
+            Files.asCharSink(euclidolapServicesInfoFile, StandardCharsets.UTF_8, FileWriteMode.APPEND).write(connInfo + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

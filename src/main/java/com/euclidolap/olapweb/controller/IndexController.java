@@ -17,6 +17,7 @@ public class IndexController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("page/index");
         mv.addObject("wasAlreadyConnected", olapWrapper.getTerminal() != null ? "YES" : "NO");
+        mv.addObject("servicesInfo", String.join(",", olapWrapper.getServicesInfo()));
         return mv;
     }
 

@@ -24,6 +24,13 @@
     </properties>
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
+
         <dependency>
             <groupId>com.euclidolap</groupId>
             <artifactId>olap-sdk</artifactId>

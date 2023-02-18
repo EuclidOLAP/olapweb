@@ -5,10 +5,7 @@ import com.euclidolap.sdk.MultiDimResult;
 import com.euclidolap.sdk.Terminal;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,6 +60,12 @@ public class APIController {
     @RequestMapping("/wasConnectorExisted")
     public String wasConnectorExisted() {
         return olapWrapper.getTerminal() == null ? "NO" : "YES";
+    }
+
+    @RequestMapping("/newEndpointInfo")
+    public String newEndpointInfo(@RequestParam("newConnInfo") String newConnInfo) {
+        olapWrapper.addConnectorInfo(newConnInfo);
+        return "OK";
     }
 
 }

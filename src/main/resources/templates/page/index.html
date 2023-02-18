@@ -16,6 +16,26 @@
 </head>
 <body style="text-align: center;">
 
+<div id="servicesInfo" th:text="${servicesInfo}" style="display: none;"></div>
+
+<div>Services List</div>
+<div id="servicesList">
+<!--    <div class="serviceEndpoint">
+        <span>192.168.66.236:8760</span>
+        <button>connect</button>
+    </div>-->
+</div>
+<div>
+    <a id="createNewConn" href="#">Create a new connection.</a>
+</div>
+
+
+
+
+
+
+
+
 <div th:switch="${wasAlreadyConnected}">
     <div id="wasAlreadyConnected" data-stat="YES" th:case="YES"></div>
     <div id="wasAlreadyConnected" data-stat="NO" th:case="NO"></div>
@@ -89,7 +109,45 @@
         $("#_input_connect").show();
     }
 
+
+
     $(function() {
+
+
+        var servicesInfoSplit = $("#servicesInfo").html().split(",");
+        for (var i=0; i<servicesInfoSplit.length; i++) {
+            var serviceEndpointDiv = $("<div></div>");
+            serviceEndpointDiv.append("<span>"+servicesInfoSplit[i]+"</span>");
+            var connBtn = $("<button data-endpoint='"+servicesInfoSplit[i]+"'>connect</button>");
+            connBtn.click(function() {
+                alert($(this).attr("data-endpoint"));
+            });
+            serviceEndpointDiv.append(connBtn);
+            $("#servicesList").append(serviceEndpointDiv);
+        }
+
+
+        $("#createNewConn").click(function() {
+            var newConnInfo = prompt("Please enter the EuclidOLAP server address and port.");
+            console.log(">>>::: newConnInfo = " + newConnInfo + " :::<<<");
+            $.ajax({
+                url: "/api/newEndpointInfo?newConnInfo=" + newConnInfo,
+                success: function(result) {
+                    window.location.reload();
+                }
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+
 
 /*
         $.ajax({
