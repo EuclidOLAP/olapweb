@@ -148,6 +148,9 @@
 
         $("#createNewConn").click(function() {
             var newConnInfo = prompt("Please enter the EuclidOLAP server address and port.");
+            if (newConnInfo == null)
+                return;
+
             console.log(">>>::: newConnInfo = " + newConnInfo + " :::<<<");
             $.ajax({
                 url: "/api/newEndpointInfo?newConnInfo=" + newConnInfo,
