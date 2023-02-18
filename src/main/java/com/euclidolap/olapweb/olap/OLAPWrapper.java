@@ -124,4 +124,8 @@ public class OLAPWrapper {
             e.printStackTrace();
         }
     }
+
+    public void setCurrentTerminal(String endpoint) {
+        terminal = terminalMap.get(endpoint);
+    }
 }
