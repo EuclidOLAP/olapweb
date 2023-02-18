@@ -18,6 +18,10 @@
 
 <div id="servicesInfo" th:text="${servicesInfo}" style="display: none;"></div>
 
+<form id="connect_form" action="/page/workbench" method="post" style="display: none;">
+    <input name="endpoint" type="text">
+</form>
+
 <div>Services List</div>
 <div id="servicesList">
 <!--    <div class="serviceEndpoint">
@@ -36,10 +40,10 @@
 
 
 
-<div th:switch="${wasAlreadyConnected}">
+<!--<div th:switch="${wasAlreadyConnected}">
     <div id="wasAlreadyConnected" data-stat="YES" th:case="YES"></div>
     <div id="wasAlreadyConnected" data-stat="NO" th:case="NO"></div>
-</div>
+</div>-->
 
 <div style="height: 15%;"></div>
 <div style="height: 30%;">
@@ -120,7 +124,22 @@
             serviceEndpointDiv.append("<span>"+servicesInfoSplit[i]+"</span>");
             var connBtn = $("<button data-endpoint='"+servicesInfoSplit[i]+"'>connect</button>");
             connBtn.click(function() {
-                alert($(this).attr("data-endpoint"));
+                var endpoint = $(this).attr("data-endpoint");
+                $("#connect_form input").val(endpoint);
+
+                $.ajax({
+                    url: "/api/connectToEndpoint?endpoint=" + endpoint,
+                    success: function(result) {
+                        if (result == "OK") {
+                            $("#connect_form").submit();
+                        } else {
+                            // todo
+                            alert("// todo ......................");
+                        }
+                    }
+                });
+
+                // $("#connect_form").submit();
             });
             serviceEndpointDiv.append(connBtn);
             $("#servicesList").append(serviceEndpointDiv);

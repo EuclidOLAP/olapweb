@@ -11,12 +11,16 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class OLAPWrapper {
 
     private static final File euclidolapServicesInfoFile = new File("euclidolapServicesInfo.txt");
+
+    private Map<String, Terminal> terminalMap = new HashMap<>();
 
     @Value("${euclidolap.predefinedServices:nothing}")
     private String predefinedServices;
@@ -80,18 +84,28 @@ public class OLAPWrapper {
         return terminal;
     }
 
+    public Terminal getTerminal(String endpoint) {
+        // return terminal;
+        return terminalMap.get(endpoint);
+    }
+
     public void setTerminal(Terminal terminal) {
         this.terminal = terminal;
     }
 
     public Terminal createConnector(String serverHost, int port) {
-        if (terminal != null)
-            return terminal;
-
-        euclidOlapServer = serverHost + ":" + port;
-
-        initTer();
+        Terminal terminal = new Terminal(serverHost, port);
+        terminal.connect();
+        terminalMap.put(serverHost + ":" + port, terminal);
         return terminal;
+
+        //if (terminal != null)
+        //    return terminal;
+        //
+        //euclidOlapServer = serverHost + ":" + port;
+        //
+        //initTer();
+        //return terminal;
     }
 
     public List<String> getServicesInfo() {

@@ -68,4 +68,17 @@ public class APIController {
         return "OK";
     }
 
+    @RequestMapping("/connectToEndpoint")
+    public String connectToEndpoint(@RequestParam("endpoint") String endpoint) {
+        Terminal terminal = olapWrapper.getTerminal(endpoint);
+        if (terminal != null)
+            return "OK";
+
+        String[] split = endpoint.split(":");
+        String host = split[0];
+        int port = Integer.parseInt(split[1]);
+        olapWrapper.createConnector(host, port);
+        return "OK";
+    }
+
 }
