@@ -11,56 +11,63 @@
         #endpoint::-webkit-input-placeholder {
             color: #989898;
         }
+
+
+
     </style>
 
 </head>
+
 <body style="text-align: center;">
 
-<div id="servicesInfo" th:text="${servicesInfo}" style="display: none;"></div>
 
-<form id="connect_form" action="/page/workbench" method="post" style="display: none;">
-    <input name="endpoint" type="text">
-</form>
-
-<div>Services List</div>
-<div id="servicesList">
-<!--    <div class="serviceEndpoint">
-        <span>192.168.66.236:8760</span>
-        <button>connect</button>
-    </div>-->
+<div style="display: none;">
+    <div id="servicesInfo" th:text="${servicesInfo}" style="display: none;"></div>
+    <form id="connect_form" action="/page/workbench" method="post" style="display: none;">
+        <input name="endpoint" type="text">
+    </form>
 </div>
+
+<div style="height: 15%;"></div>
 <div>
-    <a id="createNewConn" href="#">Create a new connection.</a>
+    <h1 style="font-size: 64px; color: #2c4a8d;">OLAP Web</h1>
 </div>
 
 
-
-
-
-
-
+<div>
+    <div>Services List</div>
+    <div id="servicesList" style="margin: 20px 0px 40px 0px; display: inline-block; width: 16%; min-width: 320px; padding: 5px 10px; border: 1px solid #c3c3c3;">
+        <!--    <div class="serviceEndpoint">
+                <span>192.168.66.236:8760</span>
+                <button>connect</button>
+            </div>-->
+    </div>
+    <div>
+        <a id="createNewConn" href="#">Create a new connection.</a>
+    </div>
+</div>
 
 <!--<div th:switch="${wasAlreadyConnected}">
     <div id="wasAlreadyConnected" data-stat="YES" th:case="YES"></div>
     <div id="wasAlreadyConnected" data-stat="NO" th:case="NO"></div>
 </div>-->
 
-<div style="height: 15%;"></div>
-<div style="height: 30%;">
-    <h1 style="font-size: 64px; color: #2c4a8d;">OLAP Web</h1>
-</div>
 
 <div>
 
-    <div id="_directly_connect" th:switch="${wasAlreadyConnected}" style="display: none;">
-        <div th:case="YES">
-            An established connection already exists.
-            <br>
-            <button id="_direct_conn" type="button" style="padding: 5px 30px; font-size: 24px;">Directly Connect</button>
-            <br>
-            <a id="_new_conn" href="#">create a new connection</a>
+    <!--
+        <div id="_directly_connect" th:switch="${wasAlreadyConnected}" style="display: none;">
+            <div th:case="YES">
+                An established connection already exists.
+                <br>
+                <button id="_direct_conn" type="button" style="padding: 5px 30px; font-size: 24px;">Directly Connect
+                </button>
+                <br>
+                <a id="_new_conn" href="#">create a new connection</a>
+            </div>
         </div>
-    </div>
+    -->
+
 
     <!--<div th:switch="${wasAlreadyConnected}">
         <span th:case="YES">
@@ -70,16 +77,23 @@
         <span th:case="NO">Please enter a valid EuclidOLAP service address and click the [connect] button to enter the console.</span>
     </div>-->
 
-    <form id="_input_connect" action="/page/workbench" method="post" style="display: none;">
-        <input id="endpoint" type="text" placeholder="server-host:port" style="font-size: 32px;">
-        <button id="_new_conn_btn" type="button" style="padding: 5px 30px; font-size: 24px;">Connect</button>
-    </form>
 
-    <div id="_use_already" th:switch="${wasAlreadyConnected}" style="display: none;">
-        <div th:case="YES">
-            <a id="_use_already_conn" href="#">Use the other connection that already exists.</a>
+    <!--
+        <form id="_input_connect" action="/page/workbench" method="post" style="display: none;">
+            <input id="endpoint" type="text" placeholder="server-host:port" style="font-size: 32px;">
+            <button id="_new_conn_btn" type="button" style="padding: 5px 30px; font-size: 24px;">Connect</button>
+        </form>
+    -->
+
+
+    <!--
+        <div id="_use_already" th:switch="${wasAlreadyConnected}" style="display: none;">
+            <div th:case="YES">
+                <a id="_use_already_conn" href="#">Use the other connection that already exists.</a>
+            </div>
         </div>
-    </div>
+    -->
+
 
 </div>
 
@@ -120,13 +134,11 @@
 
         var servicesInfoSplit = $("#servicesInfo").html().split(",");
         for (var i=0; i<servicesInfoSplit.length; i++) {
-            var serviceEndpointDiv = $("<div></div>");
-            serviceEndpointDiv.append("<span>"+servicesInfoSplit[i]+"</span>");
+
             var connBtn = $("<button data-endpoint='"+servicesInfoSplit[i]+"'>connect</button>");
             connBtn.click(function() {
                 var endpoint = $(this).attr("data-endpoint");
                 $("#connect_form input").val(endpoint);
-
                 $.ajax({
                     url: "/api/connectToEndpoint?endpoint=" + endpoint,
                     success: function(result) {
@@ -138,10 +150,18 @@
                         }
                     }
                 });
-
                 // $("#connect_form").submit();
             });
-            serviceEndpointDiv.append(connBtn);
+
+            var btnDivFloatRight = $("<div style='float: right;'></div>");
+            btnDivFloatRight.append(connBtn);
+
+            var serviceEndpointDiv = $("<div style='margin: 5px 0px;'></div>");
+            serviceEndpointDiv.append("<div style='float: left;'>"+servicesInfoSplit[i]+"</div>");
+            serviceEndpointDiv.append(btnDivFloatRight);
+            serviceEndpointDiv.append("<div style='clear: both;'></div>");
+
+            // serviceEndpointDiv.append(connBtn);
             $("#servicesList").append(serviceEndpointDiv);
         }
 
@@ -204,6 +224,9 @@
         });
 
     });
+
+
+
 
 </script>
 
