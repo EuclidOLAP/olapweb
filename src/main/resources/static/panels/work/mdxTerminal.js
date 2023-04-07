@@ -100,7 +100,7 @@ console.log("MCS ??? >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
         this.recordAMDXCommand = function(mdx) {
             var hisDiv = $('#' + this.divId + '_history');
-            hisDiv.append("<div>" + mdx + "</div>");
+            hisDiv.append("<div style='white-space: pre; font-size: 14px;'>" + mdx + "</div>");
         }
 
         this.reDrawTable = function(mdResult) {
