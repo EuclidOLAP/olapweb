@@ -45,13 +45,21 @@ function MdxTerminalFactory() {
 
             $('#' + this.divId + '_execBtn').click(this, function(event) {
                 var controller = event.data;
+                var mdxCommandStr = controller.$txtArea.val();
+
+console.log("MCS !!! >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+console.log(mdxCommandStr);
+console.log("MCS ??? >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
+                controller.recordAMDXCommand(mdxCommandStr);
+
                 $.ajax({
                     type: "post",
                     dataType: "json",
                     url: "/api/execMdx",
                     contentType: "application/json; charset=UTF-8",
                     data: JSON.stringify({
-                        mdx: controller.$txtArea.val()
+                        mdx: mdxCommandStr
                     }),
                     _$context: event.data,
                     success: function (data) {
@@ -87,7 +95,13 @@ function MdxTerminalFactory() {
                     }
                 });
             });
+
         };
+
+        this.recordAMDXCommand = function(mdx) {
+            var hisDiv = $('#' + this.divId + '_history');
+            hisDiv.append("<div>" + mdx + "</div>");
+        }
 
         this.reDrawTable = function(mdResult) {
             this.$tbl.children().remove();
