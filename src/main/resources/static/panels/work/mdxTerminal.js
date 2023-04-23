@@ -100,7 +100,26 @@ console.log("MCS ??? >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
         this.recordAMDXCommand = function(mdx) {
             var hisDiv = $('#' + this.divId + '_history');
-            hisDiv.append("<div style='white-space: pre; font-size: 14px;'>" + mdx + "</div>");
+
+            var hisMdxDiv = $("<div></div>");
+
+            var reuseMdxBtn = $("<button>reuse</button>");
+            hisMdxDiv.append(reuseMdxBtn);
+            hisMdxDiv.append("<div style='white-space: pre; font-size: 14px;'>" + mdx + "</div>");
+
+            hisDiv.append(hisMdxDiv);
+
+            hisDiv.scrollTop(hisDiv.prop('scrollHeight'));
+
+            reuseMdxBtn.click(this, function(event) {
+
+                var parent = $(this).parent();
+
+                var hisMdxDiv = parent.children("div");
+
+                var _contextController = event.data;
+                _contextController.$txtArea.val(hisMdxDiv.html());
+            });
         }
 
         this.reDrawTable = function(mdResult) {
