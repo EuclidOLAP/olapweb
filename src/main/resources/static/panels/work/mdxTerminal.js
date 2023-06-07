@@ -76,22 +76,22 @@ console.log("MCS ??? >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
                         this._$context.reDrawTable(this._$context.lastMultiDimsResult);
 
-                        this._$context.$chartA.children().remove();
-                        this._$context.$chartB.children().remove();
-                        var tmpDivAId = WW.gn();
-                        var tmpDivBId = WW.gn();
-                        this._$context.$chartA.append("<div id='"+ tmpDivAId +"' style='width: 100%; height: 100%;'></div>");
-                        this._$context.$chartB.append("<div id='"+ tmpDivBId +"' style='width: 100%; height: 100%;'></div>");
+//                        this._$context.$chartA.children().remove();
+//                        this._$context.$chartB.children().remove();
+//                        var tmpDivAId = WW.gn();
+//                        var tmpDivBId = WW.gn();
+//                        this._$context.$chartA.append("<div id='"+ tmpDivAId +"' style='width: 100%; height: 100%;'></div>");
+//                        this._$context.$chartB.append("<div id='"+ tmpDivBId +"' style='width: 100%; height: 100%;'></div>");
 
-                        var multiDimsRst = this._$context.lastMultiDimsResult;
-                        var chartCtlA = WW.findFactory("chart/chart").newController();
-                        chartCtlA.init(tmpDivAId, function() {
-                            chartCtlA.paint("basic_bar", multiDimsRst);
-                        });
-                        var chartCtlB = WW.findFactory("chart/chart").newController();
-                        chartCtlB.init(tmpDivBId, function() {
-                            chartCtlB.paint("smooth_line", multiDimsRst);
-                        });
+//                        var multiDimsRst = this._$context.lastMultiDimsResult;
+//                        var chartCtlA = WW.findFactory("chart/chart").newController();
+//                        chartCtlA.init(tmpDivAId, function() {
+//                            chartCtlA.paint("basic_bar", multiDimsRst);
+//                        });
+//                        var chartCtlB = WW.findFactory("chart/chart").newController();
+//                        chartCtlB.init(tmpDivBId, function() {
+//                            chartCtlB.paint("smooth_line", multiDimsRst);
+//                        });
                     }
                 });
             });
