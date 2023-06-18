@@ -68,7 +68,7 @@ public class CubeInfo {
 
                     double value = 100000 * valueWeight * (Math.random() * 0.4 + 0.8);
 
-                    string += " [" + measure.getPath() + "] " + (((long) value) / 1000);
+                    string += " [" + measure.getPath() + "] " + (((long) value) / 1000 * 10);
                 }
                 charSink.write("( " + string + " ),\n");
                 //System.out.println("( " + string + " ),");
