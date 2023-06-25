@@ -1,5 +1,5 @@
 euclidolap:
-  predefinedServices: 127.0.0.1:8760,192.168.66.236:8760
+  predefinedServices: 127.0.0.1:8760
   initTryConnCount: 10
 #  server: 127.0.0.1:8760
 
