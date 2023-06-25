@@ -181,7 +181,11 @@ console.log("MCS ??? >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             for (var i = 0; i < rowLen; i++) {
                 for (var j = 0; j < colLen; j++) {
                     var pos = (i + colTupLenMax) + "_" + (j + rowTupLenMax);
-                    tdMap[pos].html(mdResult.values[i * colLen + j]);
+                    if (mdResult.meaStrValues[i * colLen + j]) {
+                        tdMap[pos].html(mdResult.meaStrValues[i * colLen + j]);
+                    } else {
+                        tdMap[pos].html(mdResult.values[i * colLen + j]);
+                    }
                 }
             }
 
