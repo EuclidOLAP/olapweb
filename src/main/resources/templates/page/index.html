@@ -135,7 +135,7 @@
         var servicesInfoSplit = $("#servicesInfo").html().split(",");
         for (var i=0; i<servicesInfoSplit.length; i++) {
 
-            var connBtn = $("<button data-endpoint='"+servicesInfoSplit[i]+"'>connect</button>");
+            var connBtn = $("<button data-endpoint='"+servicesInfoSplit[i]+"'>Connect</button>");
             connBtn.click(function() {
                 var endpoint = $(this).attr("data-endpoint");
                 $("#connect_form input").val(endpoint);

@@ -3,7 +3,8 @@ package com.euclidolap.olapweb.controller;
 import com.euclidolap.olapweb.olap.OLAPWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.Mapping;
+//import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,7 +15,7 @@ public class PageController {
     @Autowired
     private OLAPWrapper olapWrapper;
 
-    @PostMapping("/workbench")
+    @RequestMapping("/workbench")
     public String workbench(@RequestParam String endpoint) {
 
         olapWrapper.setCurrentTerminal(endpoint);
