@@ -23,4 +23,9 @@ public class PageController {
         System.out.println("<<< endpoint = " + endpoint + " >>>");
         return "page/workbench";
     }
+
+    @RequestMapping("/exit")
+    public String exit() {
+        return "redirect:/";
+    }
 }
