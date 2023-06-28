@@ -21,7 +21,7 @@ public class APIController {
     public Object execMdx(@RequestBody Map<String, Object> param) {
 
         Terminal terminal = olapWrapper.getTerminal();
-        MultiDimResult result = (MultiDimResult) terminal.exec((String) param.get("mdx") + "\n;");
+        MultiDimResult result = (MultiDimResult) terminal.exec((String) param.get("mdx"));
 
         //ByteArrayOutputStream bytesArr = new ByteArrayOutputStream();
         //result.show(bytesArr);
