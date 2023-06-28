@@ -34,7 +34,7 @@
         <dependency>
             <groupId>com.euclidolap</groupId>
             <artifactId>olap-sdk</artifactId>
-            <version>0.1.4</version>
+            <version>0.1.5</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
